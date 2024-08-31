@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadCity(callback: (String) -> Unit) {
         thread {
             Thread.sleep(5000)
-            handler.post{
+            Handler(Looper.getMainLooper()).post{
                 callback.invoke("Moscow")}
 
         }
