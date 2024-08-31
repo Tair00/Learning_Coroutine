@@ -54,8 +54,8 @@ class MainActivity : AppCompatActivity() {
 
         thread {
             Looper.prepare()
-            Handler()
-            handler.post{
+
+            Handler(Looper.getMainLooper()).post{
                 Toast.makeText(
                     this,
                     getString(R.string.loading_temperature_toast, city),
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
             Thread.sleep(5000)
-            handler.post{
+            Handler(Looper.getMainLooper()).post{
                 callback.invoke(17)
             }
         }
