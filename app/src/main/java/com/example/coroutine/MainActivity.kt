@@ -2,6 +2,7 @@ package com.example.coroutine
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -52,6 +53,8 @@ class MainActivity : AppCompatActivity() {
     private fun loadTemperature(city: String, callback: (Int) -> Unit) {
 
         thread {
+            Looper.prepare()
+            Handler()
             handler.post{
                 Toast.makeText(
                     this,
