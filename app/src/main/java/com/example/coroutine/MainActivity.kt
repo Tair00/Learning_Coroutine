@@ -19,7 +19,12 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-    private val handler = Handler()
+    private val handler = object: Handler(){
+       override fun handleMessage(msg: Message){
+           super.handleMessage(msg)
+           println("HANDLE_MSG $msg")
+       }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
