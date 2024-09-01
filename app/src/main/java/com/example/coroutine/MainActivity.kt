@@ -40,12 +40,12 @@ class MainActivity : AppCompatActivity() {
         handler.sendMessage(Message.obtain(handler,0,17))
     }
 
-    private fun loadData() {
+    private suspend fun loadData() {
         binding.progress.isVisible = true
         binding.buttonLoad.isEnabled = false
-       val city =  loadCity()
+        val city =  loadCity()
             binding.tvLocation.text = city
-           val temp = loadTemperature(city)
+            val temp = loadTemperature(city)
                 binding.tvTemperature.text = temp.toString()
                 binding.progress.isVisible = false
                 binding.buttonLoad.isEnabled = true
