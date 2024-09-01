@@ -8,8 +8,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.example.compositionapp.R
 import com.example.compositionapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 import kotlin.concurrent.thread
@@ -30,7 +33,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.buttonLoad.setOnClickListener {
-            loadData()
+            lifecycleScope.launch {
+                loadData()
+            }
         }
         handler.sendMessage(Message.obtain(handler,0,17))
     }
@@ -48,12 +53,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun loadCity(): String {
-            Thread.sleep(5000)
+    private suspend fun loadCity(): String {
+       delay(5000)
         return "Moscow"
     }
 
-    private fun loadTemperature(city: String) : Int {
+    private suspend fun loadTemperature(city: String) : Int {
 
                Toast.makeText(
                    this,
@@ -61,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                    Toast.LENGTH_SHORT
                ).show()
 
-               Thread.sleep(5000)
+               delay(5000)
 
                    return 17
                }
