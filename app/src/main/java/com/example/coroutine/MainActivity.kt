@@ -38,42 +38,33 @@ class MainActivity : AppCompatActivity() {
     private fun loadData() {
         binding.progress.isVisible = true
         binding.buttonLoad.isEnabled = false
-        loadCity {
-            binding.tvLocation.text = it
-            loadTemperature(it) {
-                binding.tvTemperature.text = it.toString()
+       val city =  loadCity()
+            binding.tvLocation.text = city
+           val temp = loadTemperature(city)
+                binding.tvTemperature.text = temp.toString()
                 binding.progress.isVisible = false
                 binding.buttonLoad.isEnabled = true
-            }
-        }
+
+
     }
 
-    private fun loadCity(callback: (String) -> Unit) {
-        thread {
+    private fun loadCity(): String {
             Thread.sleep(5000)
-            runOnUiThread{
-                callback.invoke("Moscow")}
-
-        }
+        return "Moscow"
     }
 
-    private fun loadTemperature(city: String, callback: (Int) -> Unit) {
+    private fun loadTemperature(city: String) : Int {
 
-        thread {
-           runOnUiThread{ Handler(Looper.getMainLooper()).post{
                Toast.makeText(
                    this,
                    getString(R.string.loading_temperature_toast, city),
                    Toast.LENGTH_SHORT
                ).show()
-           }
+
                Thread.sleep(5000)
-               runOnUiThread{
-                   callback.invoke(17)
+
+                   return 17
                }
-           }
 
 
-        }
     }
-}
